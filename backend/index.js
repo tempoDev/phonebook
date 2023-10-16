@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors")
 const morgan = require("morgan")
 const app = express()
-
+const Person = require('./models/person')
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -15,7 +15,11 @@ app.use(morgan(':method :url :status :response-time ms - :req-body'))
 /*----------------------------------------------------------*/
 
 app.get('/api/persons', (request, response) => {
-  response.json(data.persons)
+  Person.find({})
+  .then( result => {
+    response.json(result)
+  })
+  .catch( error => next(error))
 })
 
 app.get('/info', (request, response) => {
