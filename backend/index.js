@@ -67,23 +67,44 @@ app.post('/api/persons', (request, response, next) => {
     response.json(person)
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+
+  const { name, number } = request.body
+
+  Person.findByIdAndUpdate(
+    request.params.id,
+    {name, number},
+    {new: true}
+  )
+  .then( updated => {
+    response.json(updated)
+  })
+  .catch( error => { next( error)})
+
+})
+
 app.get('/api/persons/:id', (request, response) => {
   
   Person.findById(request.params.id)
   .then( person => {
     if(person){ response.json(person)}
-    else{ response.status(400).end() }
+    else{ response.status(404).end() }
+  })
+  .catch( error => {
+    console.log(error)
+    response.status(500).end()
   })
 
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    console.log(data.persons)
-    data.persons = data.persons.filter( person => person.id !== id)
     
-    
-    response.status(204).end()
+  Person.findByIdAndRemove(request.params.id)
+  .then( result => {
+    response.status(400).end
+  })
+  .catch( error => next(error))
+
 })
 
 const PORT = process.env.PORT || 3001
