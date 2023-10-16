@@ -1,6 +1,6 @@
 const { mongo } = require("mongoose")
 
-const mongoose = requires('mongoose')
+const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
 const url = process.env.MONGO_URL
