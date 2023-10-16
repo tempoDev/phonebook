@@ -24,16 +24,13 @@ app.get('/api/persons', (request, response, next) => {
 
 app.get('/info', (request, response) => {
     const date = new Date()
-    const people = data.persons.length
-    response.send(
-        `
-        <p>PhoneBook has info for ${people} persons</p>
-        <p>${date}</p>
-        `
-    )
+    Person.find({})
+    .then( result => {
+      response.send(`<p>Phonebook has info for ${result.length} persons</p>`)
+    })
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
 
     const body = request.body
     
@@ -55,21 +52,29 @@ app.post('/api/persons', (request, response) => {
       return response.status(400).json({ error: 'Name already exists' });
     }
 
-    const person = {
-        name: body.name,
-        number: body.number,
-        id: generateId()
-    }
+    const person = new Person({
+      name: body.name,
+      number: body.number
+    })
+
+    person.save()
+    .then( result=> {
+      response.json(result)
+    })
+    .catch( error => next(error))
 
     data.persons = data.persons.concat(person)
     response.json(person)
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = data.persons.find( p => p.id === id)
-    console.log(person)
-    response.json(person)
+  
+  Person.findById(request.params.id)
+  .then( person => {
+    if(person){ response.json(person)}
+    else{ response.status(400).end() }
+  })
+
 })
 
 app.delete('/api/persons/:id', (request, response) => {
