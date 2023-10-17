@@ -1,16 +1,17 @@
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
+// eslint-disable-next-line no-undef
 const url = process.env.MONGO_URL
-console.log("Connecting...", url)
+console.log('Connecting...', url)
 
 mongoose.connect(url)
-.then( result => {
-    console.log("Connected to MongoDB")
-})
-.catch( error => {
-    console.log("ERROR connnecting to MongoDB: ", error.message)
-})
+    .then( () => {
+        console.log('Connected to MongoDB')
+    })
+    .catch( error => {
+        console.log('ERROR connnecting to MongoDB: ', error.message)
+    })
 
 const personSchema = new mongoose.Schema({
     name: {
@@ -39,4 +40,4 @@ personSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Person', personSchema);
+module.exports = mongoose.model('Person', personSchema)

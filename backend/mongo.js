@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose')
 require('dotenv').config()
 
@@ -22,12 +23,12 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 
-console.log("LONGITUD", process.argv.length)
+console.log('LONGITUD', process.argv.length)
 
 if( process.argv.length === 2){
 
     Person.find({}).then( result => {
-        console.log("PhoneBook: ")
+        console.log('PhoneBook: ')
         result.forEach( person => {
             console.log(`${person.name}: ${person.number}`)
         })
