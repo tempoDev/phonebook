@@ -6,7 +6,6 @@ const app = express()
 const Person = require('./models/person')
 app.use(bodyParser.json());
 app.use(cors());
-app.use(errorHandler)
 
 morgan.token('req-body', (req) => {
   return JSON.stringify(req.body);
@@ -113,6 +112,7 @@ const errorHandler = (error, request, response, next) => {
   }
 
 }
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen( PORT, () => {
