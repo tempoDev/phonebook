@@ -40,11 +40,11 @@ app.post('/api/persons', (request, response, next) => {
       return response.status(400).json({ error: 'Phone number is required' });
     }
 
-    const exists = data.persons.find( person => person.name === body.name)
+    //const exists = data.persons.find( person => person.name === body.name)
 
-    if(exists){
-      return response.status(400).json({ error: 'Name already exists' });
-    }
+    // if(exists){
+    //   return response.status(400).json({ error: 'Name already exists' });
+    // }
 
     const person = new Person({
       name: body.name,
@@ -57,8 +57,8 @@ app.post('/api/persons', (request, response, next) => {
     })
     .catch( error => next(error))
 
-    data.persons = data.persons.concat(person)
-    response.json(person)
+    // data.persons = data.persons.concat(person)
+    // response.json(person)
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
