@@ -34,12 +34,6 @@ app.post('/api/persons', (request, response, next) => {
 
     const body = request.body
     
-    if(!body.content){
-        return response.status(400).json({
-            error: 'content missing'
-        })
-    }
-
     if (!body.name) {
       return response.status(400).json({ error: 'Name is required' });
     } else if(!body.number){
