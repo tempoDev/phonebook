@@ -63,6 +63,9 @@ function App() {
         setPersons(persons.concat(returnedPerson))
         setMessage(`${returnedPerson.name} added to PhoneBook`)
       })
+      .catch( (error) => {
+        setMessage( error.message)
+      })
     }
 
     setNewName("")
