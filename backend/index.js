@@ -6,6 +6,7 @@ const app = express()
 const Person = require('./models/person')
 app.use(bodyParser.json());
 app.use(cors());
+app.use(errorHandler)
 
 morgan.token('req-body', (req) => {
   return JSON.stringify(req.body);
