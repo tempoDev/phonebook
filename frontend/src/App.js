@@ -64,7 +64,8 @@ function App() {
         setMessage(`${returnedPerson.name} added to PhoneBook`)
       })
       .catch( (error) => {
-        setMessage( error.message)
+        error = JSON.parse(error.request.response)
+        setMessage( 'ERROR: ' + error.message)
       })
     }
 
