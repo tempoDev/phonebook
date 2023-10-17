@@ -56,6 +56,10 @@ function App() {
           )
           setPersons(updated)
         })
+        .catch( (error) => {
+          error = JSON.parse(error.request.response)
+          setMessage( 'ERROR: ' + error.message)
+        })
       }
     } else {
       PersonsServices.addNew(newPerson)
